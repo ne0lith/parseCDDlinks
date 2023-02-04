@@ -32,22 +32,6 @@ def get_log_files(prefix):
     return log_files
 
 
-def get_all_links(io_or_vm, threads):
-    if io_or_vm == "io":
-        log_files = get_log_files(io_log_prefix)
-    else:
-        print("[-] Invalid input")
-        return
-
-    links = []
-    with mp.Pool(threads) as pool:
-        for links in tqdm.tqdm(
-            pool.imap_unordered(get_links, log_files), total=len(log_files)
-        ):
-            links.extend(links)
-    return links
-
-
 def main():
     os.system("cls")
     threads = 6
